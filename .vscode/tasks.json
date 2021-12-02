@@ -1,0 +1,217 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+            "label": "Echo param",
+            "type": "shell",
+            "command": "echo ${input:param1}",
+            "problemMatcher": []
+        },
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"run",
+				"build_runner",
+				"build",
+				"--delete-conflicting-outputs"
+			],
+			"problemMatcher": [
+				"$dart-build_runner"
+			],
+			"group": "build",
+			"label": "Build runner (build)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"run",
+				"build_runner",
+				"clean",
+			],
+			"problemMatcher": [
+				"$dart-build_runner"
+			],
+			"group": "build",
+			"label": "Build runner (clean)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"run",
+				"build_runner",
+				"watch",
+				"--delete-conflicting-outputs"
+			],
+			"problemMatcher": [
+				"$dart-build_runner"
+			],
+			"group": "build",
+			"label": "Build runner (watch)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"run",
+				"build_runner",
+				"serve",
+				"--delete-conflicting-outputs"
+			],
+			"problemMatcher": [
+				"$dart-build_runner"
+			],
+			"group": "build",
+			"label": "Build runner (server)"
+		},
+		{
+			"type": "shell",
+			"command": "pub",
+			"args": [
+				"global",
+				"activate",
+				"spider"
+			],
+			"group": "build",
+			"label": "Activate spider"
+		},
+		{
+			"type": "shell",
+			"command": "spider",
+			"args": [
+				"build"
+			],
+			"group": "build",
+			"label": "Build spider",
+			"problemMatcher": []
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"run",
+				"flutter_native_splash:create"
+			],
+			"group": "build",
+			"label": "Create native splash"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"run",
+				"flutter_native_splash:create"
+			],
+			"group": "build",
+			"label": "Create native splash"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"apk",
+				"--debug"
+			],
+			"group": "build",
+			"label": "Build Android (Debug)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"apk",
+				"--release"
+			],
+			"group": "build",
+			"label": "Build Android (Release)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"ipa",
+				"--release",
+				"--export-options-plist=./ios/Runner/OptionsPlist.plist"
+			],
+			"group": "build",
+			"label": "Build iOS (Release)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"ipa",
+				"--debug",
+				"--export-options-plist=./ios/Runner/OptionsPlist.plist"
+			],
+			"group": "build",
+			"label": "Build iOS (Debug)"
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"apk",
+				"--release",
+				"--bundle-sksl-path",
+				"flutter_android.sksl.json"
+			],
+			"group": "build",
+			"label": "Build Android (Release/SkSl)"
+		},
+		{
+			"type": "shell",
+			"runOptions": {},
+			"label": "[Windows] Create Data & Domain layers workspace for feature",
+			"command": [
+				"cd lib/features/ && ",
+				"mkdir ${input:featureName} && ",
+				"cd ${input:featureName} && ",
+				"echo. > ioc.dart && ",
+				"mkdir domain && ",
+				"mkdir data && ",
+				"cd domain && ",
+				"mkdir entities && ",
+				"cd entities && ",
+				"echo. > ${input:featureName}_entity.dart && ",
+				"cd .. && ",
+				"mkdir interactors && ",
+				"cd interactors && ",
+				"echo. > ${input:featureName}_interactor.dart && ",
+				"cd .. && ",
+				"mkdir repositories && ",
+				"cd repositories &&",
+				"echo. > ${input:featureName}_repository.dart && ",
+				"cd ../../data && ",
+				"mkdir data_sources && ",
+				"cd data_sources && ",
+				"echo. > ${input:featureName}_service.dart && ",
+				"cd .. && ",
+				"mkdir repositories && ",
+				"cd repositories && ",
+				"echo. > ${input:featureName}_repository_impl.dart",
+			],
+		},
+	],
+	"inputs": [
+		{
+            "id": "featureName",
+            "description": "Feature:",
+            "default": "awesome_feature",
+            "type": "promptString",
+        },
+	]
+}

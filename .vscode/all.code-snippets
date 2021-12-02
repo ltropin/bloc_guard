@@ -1,0 +1,342 @@
+{
+	"jsonfactory": {
+		"prefix": "jsonfactory",
+		"body": [
+			"$1: (json, isList) =>",
+			"          $1.fromJson(json as Map<String, dynamic>),"
+		],
+		"description": "jsonfactory"
+	},
+	"blocmng": {
+		"prefix": "blocmng",
+		"body": [
+			"import 'package:bloc/bloc.dart';",
+			"import 'package:freezed_annotation/freezed_annotation.dart';",
+			"import 'package:sd_market/common/utils/bloc_timeouts.dart';",
+			"",
+			"part '${TM_FILENAME_BASE}.freezed.dart';",
+			"",
+			"@freezed",
+			"class $1Event with _$$1Event {",
+			"",
+			"  const factory $1Event.initial() =",
+			"      Init$1Event;",
+			"",
+			"  const $1Event._();",
+			"}",
+			"",
+			"@freezed",
+			"class $1State with _$$1State {",
+			"",
+			"  @Implements<Pending$1State>()",
+			"  const factory $1State.getPending() =",
+			"      PendingGet$1State;",
+			"  ",
+			"  @Implements<Success$1State>()",
+			"  const factory $1State.getSuccess() =",
+			"      SuccessGet$1State;",
+			"  ",
+			"  @Implements<Failure$1State>()",
+			"  const factory $1State.getFailure() =",
+			"      FailureGet$1State;",
+			"",
+			"  const $1State._();",
+			"}",
+			"",
+			"class $1Bloc",
+			"    extends Bloc<$1Event, $1State> {",
+			"  $1Bloc({required this.interactor,})",
+			"      : super(const Initial$1State());",
+			"",
+			"  final $2 interactor;",
+			"",
+			"  @override",
+			"  Stream<$1State> mapEventToState(",
+			"          $1Event event) =>",
+			"      event.map(",
+			"        initEvent: _initEvent,",
+			"      );",
+			"",
+			"  Stream<$1State> _initEvent(Init$1Event event) async* {",
+			"    yield const $1State.getPending();",
+			"    try {",
+			"      yield await interactor.$3().timeout(BlocTimeouts.medium).then((value) => const $1State.getSuccess());",
+			"    } on TimeoutException {",
+			"      yield const $1State.getFailure();",
+			"      rethrow;",
+			"    } on Object {",
+			"      yield const $1State.getFailure();",
+			"      rethrow;",
+			"    }",
+			"  }",
+			"}"
+		],
+		"description": "blocmng"
+	},
+	"fzmodel": {
+		"prefix": "fzmodel",
+		"body": [
+			"@freezed",
+			"class $1 with _$$1 {",
+			"  factory $1({",
+			"    @JsonKey(name: 'id', required: false) String? materialId,",
+			"    @JsonKey(name: 'name', required: false) String? name,",
+			"  }) = _$1;",
+			"",
+			"  factory $1.fromJson(Map<String, dynamic> json) =>",
+			"      _$$1FromJson(json);",
+			"",
+			"  const $1._();",
+			"}"
+		],
+		"description": "fzmodel"
+	},
+	"fzfile": {
+		"prefix": "fzfile",
+		"body": [
+			"import 'package:freezed_annotation/freezed_annotation.dart';",
+			"",
+			"part '${TM_FILENAME_BASE}.freezed.dart';",
+			"part '${TM_FILENAME_BASE}.g.dart';",
+			"",
+			"@freezed",
+			"class $1 with _$$1 {",
+			"  factory $1({",
+			"    @JsonKey(name: 'id', required: false) String? materialId,",
+			"    @JsonKey(name: 'name', required: false) String? name,",
+			"  }) = _$1;",
+			"",
+			"  factory $1.fromJson(Map<String, dynamic> json) =>",
+			"      _$$1FromJson(json);",
+			"",
+			"  const $1._();",
+			"}"
+		],
+		"description": "fzfile"
+	},
+	"absstates": {
+		"prefix": "absstates",
+		"body": [
+			"abstract class Pending$1State {}",
+			"",
+			"abstract class Success$1State {}",
+			"",
+			"abstract class Failure$1State {}"
+		],
+		"description": "absstates"
+	},
+	"testcasemain": {
+		"prefix": "testcasemain",
+		"body": [
+			"import '$1/$1_bloc_test.dart' as $1;",
+			"",
+			"void main() {",
+			"  $1.main();",
+			"}"
+		],
+		"description": "testcasemain"
+	},
+	"testcase": {
+		"prefix": "testcase",
+		"body": [
+			"import 'dart:convert';",
+			"import 'dart:io';",
+			"",
+			"import 'package:bloc_test/bloc_test.dart';",
+			"import 'package:flutter_test/flutter_test.dart';",
+			"import 'package:mocktail/mocktail.dart';",
+			"import 'package:sd_market/common/resources/assets/resources.dart';",
+			"",
+			"class $1RepositoryMock extends Mock",
+			"    implements $1Repository {}",
+			"",
+			"void main() {",
+			"  late $1Repository $1Mock;",
+			"  late $1Interactor $1Interactor;",
+			"",
+			"  setUp(() {",
+			"   ",
+			"  });",
+			"  group('Module Description', () {",
+			"    ",
+			"  });",
+			"}"
+		],
+		"description": "testcase"
+	},
+	"dataservice": {
+		"prefix": "dataservice",
+		"body": [
+		  "import 'package:chopper/chopper.dart';",
+		  "import 'package:sd_market/common/api/sd_market_api.dart';",
+		  "import 'package:sd_market/common/api_services.dart';",
+		  "import 'package:sd_market/features/app/domain/entities/list_model.dart';",
+		  "",
+		  "part '${TM_FILENAME_BASE}.chopper.dart';",
+		  "",
+		  "@ChopperApi(baseUrl: '${ApiVersion.v1}/${1/(.*)/${1:/downcase}/}')",
+		  "abstract class $1Service extends ChopperService {",
+		  "  static $1Service create(String baseUrl) {",
+		  "    return _$$1Service(",
+		  "      SdMarketApi.client(",
+		  "        baseUrl: baseUrl,",
+		  "        service: _$$1Service(),",
+		  "        mapToModel: {",
+		  "          $1Entity: (json) => ListEntity.fromJson(",
+		  "                json,",
+		  "                (json) => $1Entity.fromJson(",
+		  "                  json as Map<String, dynamic>,",
+		  "                ),",
+		  "              ),",
+		  "          $1Entity: (json) => $1Entity.fromJson(json),",
+		  "        },",
+		  "      ),",
+		  "    );",
+		  "  }",
+		  "",
+		  "  @Get(path: '/path')",
+		  "  Future<Response<ListEntity<$1Entity>>> get$1();",
+		  "}"
+		],
+		"description": "dataservice"
+	  },
+	  "datarepo": {
+		"prefix": "datarepo",
+		"body": [
+		  "import 'package:sd_market/features/${1/(.*)/${1:/downcase}/}/domain/repositories/${1/(.*)/${1:/downcase}/}_repository.dart';",
+		  "",
+		  "class $1RepositoryImpl implements $1Repository {",
+		  "  final $1Service ${1/(.*)/${1:/downcase}/}Service;",
+		  "",
+		  "  $1RepositoryImpl({",
+		  "    required this.${1/(.*)/${1:/downcase}/}Service,",
+		  "  });",
+		  "}",
+		  ""
+		],
+		"description": "datarepo"
+	  },
+	  "partfreezed": {
+		"prefix": "partfreezed",
+		"body": [
+		  "part '${TM_FILENAME_BASE}.freezed.dart';"
+		],
+		"description": "partfreezed"
+	  },
+	  "partjson": {
+		"prefix": "partjson",
+		"body": [
+		  "part '${TM_FILENAME_BASE}.g.dart';"
+		],
+		"description": "partjson"
+	  },
+	  "domaininteractor": {
+		"prefix": "domaininteractor",
+		"body": [
+		  "import 'package:sd_market/features/${1/(.*)/${1:/downcase}/}/domain/entities/${1/(.*)/${1:/downcase}/}_entity.dart';",
+		  "import 'package:sd_market/features/${1/(.*)/${1:/downcase}/}/domain/repositories/${1/(.*)/${1:/downcase}/}_repository.dart';",
+		  "",
+		  "class $1Interactor {",
+		  "  const $1Interactor({",
+		  "    required $1Repository repository,",
+		  "  }) : _repository = repository;",
+		  "  final $1Repository _repository;",
+		  "",
+		  "  Future<List<$1Entity>> get$1() => _repository.get$1();",
+		  "}"
+		],
+		"description": "domaininteractor"
+	  },
+	  "domainrepo": {
+		"prefix": "domainrepo",
+		"body": [
+		  "import 'package:sd_market/features/${1/(.*)/${1:/downcase}/}/domain/entities/${1/(.*)/${1:/downcase}/}_entity.dart';",
+		  "",
+		  "abstract class $1Repository {",
+		  "  Future<List<$1Entity>> get$1();",
+		  "}",
+		  ""
+		],
+		"description": "domainrepo"
+	  },
+	  "ioc": {
+		"prefix": "ioc",
+		"body": [
+		  "import 'package:get_it/get_it.dart';",
+		  "import 'package:sd_market/common/api/sd_market_api.dart';",
+		  "",
+		  "Future<void> ${1/(.*)/${1:/downcase}/}DependenciesRegister() async {",
+		  "  GetIt.I.registerFactory<$1Interactor>(",
+		  "    () {",
+		  "      return $1Interactor(",
+		  "        repository: $1RepositoryImpl(),",
+		  "      );",
+		  "    },",
+		  "  );",
+		  "}"
+		],
+		"description": "ioc"
+	  },
+	  "cacheentity": {
+		"prefix": "cacheentity",
+		"body": [
+		  "@freezed",
+		  "class $1Entity",
+		  "    with _$$1Entity",
+		  "    implements KeyBasedModel<String>, StringSerialize {",
+		  "  /// Сущность - $2",
+		  "  const factory $1Entity({",
+		  "    @JsonKey(name: 'code') required String code,",
+		  "    @JsonKey(name: 'name') required String name,",
+		  "  }) = _$1Entity;",
+		  "",
+		  "  factory $1Entity.fromJson(Map<String, dynamic> json) =>",
+		  "      _$$1EntityFromJson(json);",
+		  "",
+		  "  const $1Entity._();",
+		  "",
+		  "  /// Ключ - [code]",
+		  "  @override",
+		  "  String get key => code;",
+		  "",
+		  "  @override",
+		  "  String serialize() => jsonEncode(toJson());",
+		  "}"
+		],
+		"description": "cacheentity"
+	  },
+	  "interactor": {
+		"prefix": "interactor",
+		"body": [
+		  "class $1Interactor {",
+		  "  final $1Repository _apiRepository;",
+		  "",
+		  "  $1Interactor({",
+		  "    required $1Repository apiRepository,",
+		  "  }) : _apiRepository = apiRepository;",
+		  "",
+		  "  Future<$1Entity> getMaterial() =>",
+		  "      _apiRepository.get$1();",
+		  "",
+		  "}",
+		  ""
+		],
+		"description": "interactor"
+	  },
+	  "domainentity": {
+		"prefix": "domainentity",
+		"body": [
+		  "@freezed",
+		  "class $1Entity with _$$1Entity implements DomainEntity {",
+		  "  /// Сущность -",
+		  "  const factory $1Entity({",
+		  "    @JsonKey(name: 'code') required String code,",
+		  "    @JsonKey(name: 'name') required String name,",
+		  "  }) = _$1Entity;",
+		  "",
+		  "  const $1Entity._();",
+		  "}"
+		],
+		"description": "domainentity"
+	  }
+}
